@@ -19,9 +19,6 @@ type Cliente {
     type Email {
         email: String
     }
-    type Query {
-        getCliente(id: ID) : Cliente
-    }
     input PedidoInput{
         producto: String
         precio: Int
@@ -39,6 +36,9 @@ type Cliente {
         edad: Int!
         tipo: TipoCliente!
         pedidos: [PedidoInput] 
+    }
+    type Query {
+        getCliente(id: ID) : Cliente
     }
     """Mutations para crear nuevos clientes"""
     type Mutation {
