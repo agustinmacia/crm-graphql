@@ -43,5 +43,7 @@ type Cliente {
     """Mutations para crear nuevos clientes"""
     type Mutation {
         #Nombre del Resolver, Input con datos y valor que retorna
-        crearCliente(input: ClienteInput): Cliente
+        crearCliente(input: ClienteInput) : Cliente
+        actualizarCliente(input: ClienteInput) : Cliente
+        eliminarCliente(id : ID!) : String
     }
