@@ -1,6 +1,7 @@
 //Mostrar listado de todos los clientes
 import React, { Fragment } from 'react';
 import { Query } from 'react-apollo';
+import { Link } from 'react-router-dom';
 
 import { obtenerClientes_QUERY } from '../queries/clientes';
 
@@ -21,9 +22,9 @@ const Clientes = () => (
                                     {cliente.nombre} {cliente.apellido}
                                 </div>
                                 <div className="col-md-4 d-flex justify-content-end">
-                                    <a className="btn btn-success d-block d-md-inline-block">
+                                    <Link to={`/cliente/editar/${cliente.id}`} className="btn btn-success d-block d-md-inline-block">
                                         Editar Cliente
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </li>
