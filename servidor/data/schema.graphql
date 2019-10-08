@@ -19,6 +19,7 @@ type Cliente {
     type Email {
         email: String
     }
+    
     input PedidoInput{
         producto: String
         precio: Int
