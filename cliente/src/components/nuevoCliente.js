@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import { nuevoCliente_MUTATION } from '../mutations/clientes'
+import { Mutation } from 'react-apollo'
 
 class NuevoCliente extends Component {
     state = {
@@ -9,14 +11,47 @@ class NuevoCliente extends Component {
             edad: '',
             email: '',
             tipo: ''
-        }
+        },
+        error : false      
     }
     render() {
+        const {error} = this.state;
+        let respuesta = (error) ? <p className="alert alert-danger p-3 text-center">Todos los campos son obligatorios</p>: '';
         return (
             <Fragment>
             <h2 className="text-center">Nuevo Cliente</h2>
+             {respuesta}
             <div className="row justify-content-center">
-            <form className="col-md-8 m-3" >
+            <Mutation mutation={nuevoCliente_MUTATION} onCompleted={ () => this.props.history.push('/')}>
+                {crearCliente =>(
+            <form   className="col-md-8 m-3"
+                    onSubmit={e => {
+                        e.preventDefault();
+                        const {nombre, apellido, empresa, edad, email, tipo} = this.state.cliente;
+                        
+                        if(nombre==='' || apellido ==='' || empresa==='' || edad==='' || email==='' || tipo===''){
+                            this.setState({
+                                error:true
+                            });
+                            return;
+                        }
+
+                        this.setState({
+                            error: false
+                        })
+
+                        const input = {
+                            nombre,
+                            apellido,
+                            empresa,
+                            edad : Number(edad),
+                            email,
+                            tipo
+                        }
+                        crearCliente({
+                            variables: {input}
+                        });
+                    }}>
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label>Nombre</label>
@@ -53,6 +88,8 @@ class NuevoCliente extends Component {
                 </div>
                 <button type="submit" className="btn btn-success float-right">Crear Cliente</button>
             </form>
+            )}
+            </Mutation>
             </div>
             </Fragment>
         );

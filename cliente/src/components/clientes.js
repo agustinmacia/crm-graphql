@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import { obtenerClientes_QUERY } from '../queries/clientes';
 
 const Clientes = () => (
-    <Query query={obtenerClientes_QUERY} >
-    {({ loading, error, data }) => {
+    <Query query={obtenerClientes_QUERY} pollInterval={1000}>
+    {({ loading, error, data, startPolling, stopPolling }) => {
         if(loading) return "Cargando..";
         if(error) return `Erro: ${error.message}`;
         console.log(data.getClientes);
