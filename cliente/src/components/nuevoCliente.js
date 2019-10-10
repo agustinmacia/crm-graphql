@@ -12,8 +12,34 @@ class NuevoCliente extends Component {
             email: '',
             tipo: ''
         },
-        error : false      
+        error : false,
+        emails: []      
     }
+
+    nuevoCampo = () => {
+        this.setState({
+            emails: this.state.emails.concat([{email: ''}])
+        })
+    }
+    eliminarCampo = index => () => {
+        this.setState ({
+            emails: this.state.emails.filter((email, i) => i != index)
+        })
+    }
+
+    leerCampo = index => e => {
+        const nuevoEmail = this.state.emails.map((email, i) =>{
+            if(index != i) return email;
+            return {
+                ...email,
+                email: e.target.value
+            }
+        });
+        this.setState({
+            emails: nuevoEmail
+        })
+    }
+
     render() {
         const {error} = this.state;
         let respuesta = (error) ? <p className="alert alert-danger p-3 text-center">Todos los campos son obligatorios</p>: '';
@@ -63,13 +89,25 @@ class NuevoCliente extends Component {
                     </div>
                 </div>
                 <div className="form-row">
-                    <div className="form-group col-md-6">
+                    <div className="form-group col-md-12">
                         <label>Empresa</label>
                         <input type="text" className="form-control" placeholder="Empresa" onChange={e => this.setState({cliente:{...this.state.cliente, empresa: e.target.value}})}/>
                     </div>
-                    <div className="form-group col-md-6">
-                        <label>Email</label>
-                        <input type="email" className="form-control" placeholder="Email" onChange={e => this.setState({cliente:{...this.state.cliente, email: e.target.value}})}/>
+                    {this.state.emails.map((input, index) => (
+                        <div key={index} className="form-group col-md-12">
+                            <label>Correo: {index + 1}</label>
+                            <div className="input-group">
+                            <input onChange={this.leerCampo(index)} type="email" placeholder="email" className="form-control" />
+                            <div className="input-group-append">
+                                <button type="button" class="btn btn-danger" onClick={this.eliminarCampo(index)}>
+                                    &times; Eliminar
+                                </button>
+                            </div>
+                            </div>
+                        </div>
+                    ))}
+                    <div className="form-group d-flex justify-content-center col-md-12">
+                        <button onClick={this.nuevoCampo} type="button" className="btn btn-warning">+Agregar email</button>
                     </div>
                 </div>
                 <div className="form-row">
