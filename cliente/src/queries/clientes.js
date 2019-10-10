@@ -13,3 +13,15 @@ export const obtenerClientes_QUERY = gql`{
       }
     }
   }`;
+
+  export const obtenerCliente_QUERY = gql`
+
+    query ConsultarClienteById($id: ID) {
+      getCliente(id: $id) {
+        nombre
+        apellido
+        empresa
+
+      }
+    }
+  `;
