@@ -26,7 +26,7 @@ class EditarCliente extends Component {
 
                         return (
                             <EditarClienteForm
-                            
+                                cliente={data.getCliente}
                             />
                         )
                     }}
