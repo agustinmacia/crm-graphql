@@ -23,3 +23,9 @@ mutation actualizarCliente($input: ClienteInput){
       } 
     }
 }`;
+
+export const eliminarCliente_MUTATION = gql `
+mutation eliminarCliente($id: ID!) {
+  eliminarCliente(id: $id)
+}
+`;

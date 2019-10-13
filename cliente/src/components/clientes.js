@@ -2,8 +2,10 @@
 import React, { Fragment } from 'react';
 import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
+import { Mutation } from 'react-apollo';
 
 import { obtenerClientes_QUERY } from '../queries/Clientes';
+import { eliminarCliente_MUTATION} from '../mutations/Clientes';
 
 const Clientes = () => (
     <Query query={obtenerClientes_QUERY} pollInterval={1000}>
@@ -15,20 +17,32 @@ const Clientes = () => (
             <Fragment>
                 <h2 className="container">Listado Clientes</h2>
                 <ul className="list-group">
-                    {data.getClientes.map(cliente => (
+                    {data.getClientes.map(cliente => {
+                        const {id} = cliente;
+                        return(
                         <li key={cliente.id} className="list-group-item">
                             <div className="row justify-content-betwenn align-items-center">
                                 <div className="col-md-8 d-flex justify-content-betwenn align-items-center">
-                                    {cliente.nombre} {cliente.apellido}
+                                    {cliente.nombre} {cliente.apellido} {cliente.empresa}
                                 </div>
                                 <div className="col-md-4 d-flex justify-content-end">
+                                    <Mutation mutation={eliminarCliente_MUTATION}>
+                                        {eliminarCliente => (
+                                            <button type="button" className="btn btn-danger d-block d-md-inline-block mr-2" onClick={ () => {
+                                                eliminarCliente({
+                                                    variables: {id}
+                                                })
+                                            }}> &times; Eliminar</button>
+                                        )}
+                                    </Mutation>
                                     <Link to={`/cliente/editar/${cliente.id}`} className="btn btn-success d-block d-md-inline-block">
                                         Editar Cliente
                                     </Link>
                                 </div>
                             </div>
                         </li>
-                    ))}
+                        )
+                    })}
                 </ul>
             </Fragment>
         )
