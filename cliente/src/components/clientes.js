@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
-import { obtenerClientes_QUERY } from '../queries/clientes';
+import { obtenerClientes_QUERY } from '../queries/Clientes';
 
 const Clientes = () => (
     <Query query={obtenerClientes_QUERY} pollInterval={1000}>

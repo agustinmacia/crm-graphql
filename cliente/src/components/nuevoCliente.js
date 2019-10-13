@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { nuevoCliente_MUTATION } from '../mutations/clientes'
+import { nuevoCliente_MUTATION } from '../mutations/Clientes'
 import { Mutation } from 'react-apollo'
 
 class NuevoCliente extends Component {
@@ -46,7 +46,7 @@ class NuevoCliente extends Component {
         return (
             <Fragment>
             <h2 className="text-center">Nuevo Cliente</h2>
-             {respuesta}
+            {respuesta}
             <div className="row justify-content-center">
             <Mutation mutation={nuevoCliente_MUTATION} onCompleted={ () => this.props.history.push('/')}>
                 {crearCliente =>(
