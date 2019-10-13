@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {actualizarCliente_MUTATION} from '../mutations/Clientes';
+import { Mutation } from 'react-apollo';
+import { withRouter } from 'react-router-dom';
 
 class EditarClienteForm extends Component {
 
@@ -32,13 +34,35 @@ class EditarClienteForm extends Component {
 
     render() { 
 
-            const {nombre, apellido, empresa, edad, tipo} = this.state.cliente;
-            
-            const {emails} = this.state;
+        const {nombre, apellido, empresa, edad, tipo} = this.state.cliente;
+        const {emails} = this.state;
 
             return (
-        
-                <form className="col-md-8 m-3">
+                <Mutation mutation={actualizarCliente_MUTATION} onCompleted={ () => this.props.refetch().then(() => {
+                    this.props.history.push('/')
+                })}>
+                
+                {actualizarCliente => (
+                    <form className="col-md-8 m-3" onSubmit={e => {
+                        e.preventDefault();
+                        const {id, nombre, apellido, empresa, edad, tipo} = this.state.cliente;
+            
+                        const {emails} = this.state;
+            
+                        const input = {
+                            id,
+                            nombre,
+                            apellido,
+                            empresa,
+                            edad: Number(edad),
+                            tipo,
+                            emails
+                        }
+                    actualizarCliente({
+                        variables: {input}
+                    });
+
+                    }}>
                             <div className="form-row">
                                 <div className="form-group col-md-6">
                                     <label>Nombre</label>
@@ -162,9 +186,11 @@ class EditarClienteForm extends Component {
                             </div>
                             <button type="submit" className="btn btn-success float-right">Guardar Cambios</button>
                         </form>
+                )}
+                </Mutation>
             )      
     }
 }
 
 
-export default EditarClienteForm;
+export default withRouter(EditarClienteForm);

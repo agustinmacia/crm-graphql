@@ -20,13 +20,14 @@ class EditarCliente extends Component {
                 <h2 className="text-center">Editar Cliente</h2>
 
                 <Query query={obtenerCliente_QUERY} variables={{id}}>
-                    {({loading, error, data}) => {
+                    {({loading, error, data, refetch}) => {
                         if(loading) return 'Obteniendo datos...';
                         if(error) return `Error ${error.message}`;
 
                         return (
                             <EditarClienteForm
                                 cliente={data.getCliente}
+                                refetch={refetch}
                             />
                         )
                     }}
