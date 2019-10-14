@@ -39,7 +39,7 @@ type Cliente {
         pedidos: [PedidoInput] 
     }
     type Query {
-        getClientes(limite: Int) : [Cliente]
+        getClientes(limite: Int, offset: Int) : [Cliente]
         getCliente(id: ID) : Cliente
     }
     """Mutations para crear nuevos clientes"""
