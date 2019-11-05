@@ -11,6 +11,7 @@ import Paginador from './Paginador'
 
 class Clientes extends Component{
 
+    limite = 3
     state = {
         paginador: {
             offset: 0,
@@ -24,7 +25,7 @@ class Clientes extends Component{
                 {({ loading, error, data, startPolling, stopPolling }) => {
                     if(loading) return "Cargando..";
                     if(error) return `Erro: ${error.message}`;
-                    console.log(data.getClientes);
+                    console.log(data);
                     return (
                         <Fragment>
                             <h2 className="container">Listado Clientes</h2>
@@ -58,7 +59,7 @@ class Clientes extends Component{
                                     )
                                 })}
                             </ul>
-                            <Paginador actual = {this.state.paginador.actual}/>
+                            <Paginador actual = {this.state.paginador.actual} getTotalClientes={data.getTotalClientes} limite={this.limite}/>
                         </Fragment>
                     )
                 }}

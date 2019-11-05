@@ -12,6 +12,7 @@ export const obtenerClientes_QUERY = gql`{
         producto
       }
     }
+    getTotalClientes
   }`;
 
   export const obtenerCliente_QUERY = gql`

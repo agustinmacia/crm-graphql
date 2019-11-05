@@ -15,6 +15,14 @@ export const resolvers = {
                 });
             });
         },
+        getTotalClientes : (root) => {
+            return new Promise ((resolve, object) => {
+                Clientes.countDocuments({}, (error, count) =>{
+                    if (error) reject (error)
+                    else resolve(count)
+                })
+            });
+        }
     },
     Mutation: {
         crearCliente : (root, {input}) => {

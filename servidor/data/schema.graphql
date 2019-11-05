@@ -41,6 +41,7 @@ type Cliente {
     type Query {
         getClientes(limite: Int, offset: Int) : [Cliente]
         getCliente(id: ID) : Cliente
+        getTotalClientes : String
     }
     """Mutations para crear nuevos clientes"""
     type Mutation {
